@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: laravel-app
+    container_name: laravel-app
+    ports:
+      - "8000:80"   # Puerto local 8000 mapeado al puerto 80 del contenedor
+    volumes:
+      - .:/var/www/html  # Mapea el código fuente al contenedor
+      - ./docker/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf  # Mapea tu archivo de configuración de Apache
+    networks:
+      - laravel-network
+    depends_on:
+      - db  # La aplicación depende de que el servicio de db esté disponible
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=starterkit
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=Santi14..
+
+  db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: starterkit
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Santi14..
+    ports:
+      - "5434:5432"
+    networks:
+      - laravel-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Volumen para persistir datos
+
+networks:
+  laravel-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
