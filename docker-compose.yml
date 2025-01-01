@@ -6,7 +6,7 @@ services:
     image: laravel-app
     container_name: laravel-app
     ports:
-      - "8000:80"   # Puerto local 8000 mapeado al puerto 80 del contenedor
+      - "80:80"   # Puerto local 8000 mapeado al puerto 80 del contenedor
     volumes:
       - .:/var/www/html  # Mapea el código fuente al contenedor
       - ./docker/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf  # Mapea tu archivo de configuración de Apache
