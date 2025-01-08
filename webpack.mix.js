@@ -93,8 +93,8 @@ let plugins = [
                 },
                 {
                     // keenicons
-                    search: /url\(['"]?fonts\/(keenicons-.*?)\.(.*?)(\?[^'"]*)?['"]?\)/g,
-                    replace: "url(./fonts/$1/$1.$2)",
+                    search: /url\(['"]?(?:\.\.\/)?fonts\/(keenicons-.*?)\.(woff|woff2|eot|ttf|svg)\?*\w*['"]?\)/g,
+                    replace: "url(./fonts/keenicons-duotone/$1.$2)",
                 },
             ],
         },
